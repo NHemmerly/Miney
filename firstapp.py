@@ -1,6 +1,7 @@
 # First Discord Bot maybe it'll get the weather or something
 
 import os
+import subprocess
 
 import discord
 import random
@@ -18,18 +19,20 @@ client = CustomClient(intents=discord.Intents.all())
 
 @client.event
 async def on_message(message):
-    if message.author == client.user:
+    if not message.content.startwith('>') or message.author == client.user:
         return
     
-    message_replies = [
-        'Soji...',
-        'giga',
-        'return to the mines...'
-    ]
+    try:
+         resp = subprocess.Popen()
+    #message_replies = [
+     #   'Soji...',
+     #   'giga',
+      #  'return to the mines...'
+    #]
 
-    if message.content == 'hello bot':
-        response = random.choice(message_replies)
-        await message.channel.send(response)
+    #if message.content == 'hello bot':
+     #   response = random.choice(message_replies)
+      #  await message.channel.send(response)
 
 @client.event
 async def on_member_join(member):
