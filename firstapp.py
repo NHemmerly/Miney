@@ -8,19 +8,23 @@ import random
 from json import load
 from dotenv import load_dotenv
 
+#Load tokens
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 GUILD = os.getenv("DISCORD_GUILD")
 
+#setup bot client
 class CustomClient(discord.Client):
     async def on_ready(self):
         print(f'{self.user} has connected to Discord!')
 
 client = CustomClient(intents=discord.Intents.all())
 
+#load keyword json
 with open('keywords.json') as keyword_file:
     keywords = load(keyword_file)
 
+#handle commands
 async def send_command(keyword):
     keyword = str[1:]
     if keyword in keywords['standard_commands']:
@@ -36,11 +40,7 @@ async def on_message(message):
     if not message.content.startswith('>') or message.author == client.user:
         return
     
-    try:
-         resp = subprocess.Popen([message], shell=True, stdout=subprocess.PIPE)
-         status = resp.poll()
-    except:
-        resp = 'Something went wrong'
+    
     #message_replies = [
      #   'Soji...',
      #   'giga',
